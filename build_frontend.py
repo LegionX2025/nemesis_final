@@ -34,13 +34,6 @@ for f in files_to_copy:
 # Default index
 shutil.copy("landing.html", os.path.join(dist_dir, "index.html"))
 
-# Create Cloudflare Pages configuration
-wrangler_toml = """
-name = "nemesis-frontend"
-pages_build_output_dir = "dist"
-compatibility_date = "2024-01-01"
-"""
-with open("wrangler.toml", "w") as f:
-    f.write(wrangler_toml.strip() + "\n")
+# Cloudflare Pages configuration is handled by the existing wrangler.toml file
 
 print("Frontend built successfully in dist/")
