@@ -4,6 +4,8 @@ import sys
 import time
 import threading
 import re
+from dotenv import load_dotenv
+load_dotenv()
 
 def update_wrangler_toml(tunnel_url):
     print(f"[DEPLOYER] Updating wrangler.toml with TUNNEL_URL: {tunnel_url}")
