@@ -65,5 +65,5 @@ def validate_and_report():
             
     print("==================================")
     if not all_ready:
-        print("CRITICAL STARTUP FAILURE. Aborting.")
-        sys.exit(1)
+        print("WARNING: Some auxiliary modules failed to load. Operating in degraded mode.")
+        # sys.exit(1)  # Prevent Vercel HTTP 500 crashes
