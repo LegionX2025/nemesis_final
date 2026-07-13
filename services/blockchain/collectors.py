@@ -35,17 +35,23 @@ async def _fetch_etherscan(session, address: str, chain: str) -> List[GBIOEdge]:
         api_url = "https://api.bscscan.com/api"
         api_key = os.getenv("BSCSCAN_API_KEY", "")
     elif chain in ["OPTIMISM", "OP"]:
-        api_url = "https://api-optimistic.etherscan.io/api"
+        api_url = "https://api-optimism.etherscan.io/api"
         api_key = os.getenv("OPTIMISM_API_KEY", "")
     elif chain in ["ARBITRUM", "ARB"]:
         api_url = "https://api.arbiscan.io/api"
         api_key = os.getenv("ARBITRUM_API_KEY", "")
     elif chain in ["AVALANCHE", "AVAX"]:
-        api_url = "https://api.snowtrace.io/api"
+        api_url = "https://api.routescan.io/v2/network/mainnet/evm/43114/etherscan/api"
         api_key = os.getenv("SNOWTRACE_API_KEY", "")
     elif chain == "BASE":
         api_url = "https://api.basescan.org/api"
         api_key = os.getenv("BASESCAN_API_KEY", "")
+    elif chain == "CELO":
+        api_url = "https://api.celoscan.io/api"
+        api_key = os.getenv("CELOSCAN_API_KEY", "")
+    elif chain == "LINEA":
+        api_url = "https://api.lineascan.build/api"
+        api_key = os.getenv("LINEASCAN_API_KEY", "")
 
     edges = []
     

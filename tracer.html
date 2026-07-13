@@ -486,23 +486,6 @@
     </div>
 
     <script>
-
-    // === MULTI-CLOUD BACKEND FAILOVER ===
-    const BACKENDS = [
-        "nemesisfinal.vercel.app", 
-        "projectnemesis.onrender.com"
-    ];
-    let currentBackendIndex = 0;
-
-    function getBackendHttpUrl(path) {
-        return `https://${BACKENDS[currentBackendIndex]}/api/${path}`;
-    }
-
-    function getBackendWsUrl(path) {
-        return `wss://${BACKENDS[currentBackendIndex]}/api/ws/${path}`;
-    }
-    // =====================================
-
         // Official Network Logos Mapping
         const NETWORK_LOGOS = {
             "ETH": "https://cryptologos.cc/logos/ethereum-eth-logo.png?v=035",
@@ -568,7 +551,7 @@
                 icon.classList.add('fa-chevron-left');
             }
             isSidebarOpen = !isSidebarOpen;
-            setTimeout(() => { if (network) network.fit(); }, 300);
+            setTimeout(() => { if (renderer) renderer.refresh(); }, 300);
         }
 
         function initializeFromLanding() {
@@ -745,7 +728,7 @@
             if (!IMAGE_CACHE[url]) {
                 const img = new Image();
                 img.src = url;
-                img.onload = () => { if (network) network.redraw(); };
+                img.onload = () => { if (renderer) renderer.refresh(); };
                 IMAGE_CACHE[url] = img;
             }
             return IMAGE_CACHE[url];
@@ -970,7 +953,7 @@
             }
             if (data.type === 'INIT') {
                 addTerminalLog("INITIATING TRACE SENSOR ARRAY...", "text-blue-400");
-                if (!network) initGraphSimulation();
+                if (!renderer) initGraphSimulation();
                 document.getElementById('status').innerHTML = '<span class="text-blue-600">Trace Running...</span>';
                 document.getElementById('tx-log-loader').classList.remove('hidden');
                 graph.clear(); allNodesMap.clear(); allEdgesMap.clear();
@@ -984,7 +967,7 @@
                     nodeBuffer.push({ id: seed, label: 'START\n' + seed.substring(0,8) + '...', image: getSafeIconUrl(seed, false, false, "ETHEREUM") });
                     allNodesMap.set(seed, {id: seed});
                 });
-                network.fit({animation: true});
+                if (renderer) renderer.refresh();
             } else if (data.type === 'NODE_UPDATE') {
                 if (allNodesMap.has(data.node)) {
                     let updateData = { id: data.node };

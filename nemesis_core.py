@@ -28,7 +28,10 @@ if not IS_CLOUD:
             if pkg == "python-dotenv": mod_name = "dotenv"
             elif pkg == "beautifulsoup4": mod_name = "bs4"
             elif pkg == "google-generativeai": mod_name = "google.generativeai"
-            __import__(mod_name)
+            import warnings
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                __import__(mod_name)
         except ImportError:
             missing_packages.append(pkg)
             
@@ -400,7 +403,7 @@ from services.blockchain import collectors
 async def fetch_chain_logs(session, addr, chain):
     """Real fetch using Omni-Chain collectors and Fallback API Scraper."""
     events = []
-    edges = await collectors.run_all_collectors(session, addr, chain)
+    edges = await collectors.run_collectors(session, addr, chain)
     for edge in edges:
         # Convert GBIOEdge back to expected dict format for process_hop
         # bitquery_collectors returns edges with edge_id, amount_native, timestamp, source_node_id, target_node_id
@@ -625,6 +628,16 @@ async def get_css():
 async def get_js(): 
     if os.path.exists("nemesis-ui.js"): return FileResponse("nemesis-ui.js")
     return JSONResponse({"status": "not found"}, status_code=404)
+
+@app.get("/global_nav.js")
+async def get_global_nav_js(): 
+    if os.path.exists("global_nav.js"): return FileResponse("global_nav.js")
+    return JSONResponse({"status": "not found"}, status_code=404)
+
+@app.post("/api/logs/frontend")
+async def post_frontend_logs(request: Request):
+    # Dummy endpoint to absorb frontend logs
+    return {"status": "success"}
 
 @app.get("/api/dossier/full")
 async def get_dossier_full(address: str):
