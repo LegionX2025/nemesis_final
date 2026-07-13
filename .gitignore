@@ -37,3 +37,9 @@ data/*.jsonl
 workers/node_modules/
 scripts/
 archive_unused/
+
+data/*.json
+data/*.jsonl
+workers/node_modules/
+scripts/
+archive_unused/
