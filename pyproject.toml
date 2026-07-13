@@ -2,7 +2,20 @@
 name = "nemesis-core"
 version = "1.0.0"
 description = "NEMESIS Backend"
-dependencies = []
-
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "motor",
+    "pydantic",
+    "python-dotenv",
+    "requests",
+    "aiohttp",
+    "websockets",
+    "colorama",
+    "beautifulsoup4",
+    "mcp",
+    "pymongo",
+    "cryptography"
+]
 [tool.vercel]
 entrypoint = "nemesis_core:app"
