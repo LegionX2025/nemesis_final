@@ -5,9 +5,16 @@ import aiohttp
 from typing import Dict, Any
 
 from services.api_rotator import rotator
-from scripts.oklink_scraper import scrape_oklink_tags
+try:
+    from scripts.oklink_scraper import scrape_oklink_tags
+except ImportError:
+    scrape_oklink_tags = None
 from scripts.osint_orchestrator import aggregate_osint
-from scripts.darknet import WalletEnrichmentEngine, UIEEngine
+try:
+    from scripts.darknet import WalletEnrichmentEngine, UIEEngine
+except ImportError:
+    WalletEnrichmentEngine = None
+    UIEEngine = None
 
 logger = logging.getLogger("NEMESIS_INTELLIGENCE")
 

@@ -15,7 +15,9 @@ dependencies = [
     "beautifulsoup4",
     "mcp",
     "pymongo",
-    "cryptography"
+    "cryptography",
+    "asyncpg",
+    "google-generativeai"
 ]
 [tool.vercel]
 entrypoint = "nemesis_core:app"

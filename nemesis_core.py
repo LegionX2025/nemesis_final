@@ -8,7 +8,10 @@ import warnings
 warnings.simplefilter('ignore', FutureWarning)
 import subprocess
 import importlib.util
-import oklink_scraper
+try:
+    import oklink_scraper
+except ImportError:
+    oklink_scraper = None
 import asyncio
 import aiohttp
 import json
